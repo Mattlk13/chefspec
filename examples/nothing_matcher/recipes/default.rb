@@ -8,6 +8,6 @@ ruby_block 'no' do
 end
 
 ruby_block 'both' do
-  action [:run, :nothing]
+  action %i(run nothing)
   block {}
 end

@@ -11,7 +11,8 @@ describe 'dsc_resource::run' do
           ensure: 'present',
           path: 'C:\Users\Public\Documents\example.zip',
           destination: 'C:\Users\Public\Documents\ExtractionPath',
-        })
+        }
+      )
     }
   end
 
@@ -22,7 +23,8 @@ describe 'dsc_resource::run' do
         properties: {
           groupname: 'demo1',
           ensure: 'present',
-        })
+        }
+      )
     }
   end
 
@@ -35,7 +37,8 @@ describe 'dsc_resource::run' do
           fullname: 'Foobar1',
           password: 'P@assword!',
           ensure: 'present',
-        })
+        }
+      )
     }
   end
 end

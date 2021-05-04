@@ -1,5 +1,16 @@
 # CHANGELOG for ChefSpec
 
+## 9.3.0 (May 4, 2021)
+
+- Add support for resources that include a `description` value in the action
+- Require Ruby 2.5+ and Chef Infra Client 15+
+- Add support for Ruby 3
+
+## 9.2.1 (August 13, 2020)
+
+- Improve performance by only requiring external libraries if they are not already loaded
+- Expand testing to additional releases of Chef Infra Client
+
 ## 9.2.0 (June 10, 2020)
 
 - Updated `stubs_for_resource` stubbing for the new `after_resource` state in Chef Infra Client 16.

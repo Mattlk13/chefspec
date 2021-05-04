@@ -23,7 +23,7 @@ describe 'complex recipe block' do
       variables platform: node['platform']
     end
     service 'apache2' do
-      action [:start, :enable]
+      action %i(start enable)
       subscribes :restart, 'template[/etc/apache2/apache2.conf]'
     end
   end

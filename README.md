@@ -1,6 +1,8 @@
 # ChefSpec
 
-[![Gem Version](https://badge.fury.io/rb/chefspec.svg)](https://badge.fury.io/rb/chefspec) [![Build Status](https://travis-ci.org/chefspec/chefspec.svg?branch=master)](https://travis-ci.org/chefspec/chefspec)
+[![Gem Version](https://badge.fury.io/rb/chefspec.svg)](https://badge.fury.io/rb/chefspec)
+[![Build Status](https://travis-ci.org/chefspec/chefspec.svg?branch=master)](https://travis-ci.org/chefspec/chefspec) 
+[![CI](https://github.com/chefspec/chefspec/actions/workflows/ci.yml/badge.svg)](https://github.com/chefspec/chefspec/actions/workflows/ci.yml)
 
 ChefSpec is a unit testing framework for testing Chef cookbooks. ChefSpec makes it easy to write examples and get fast feedback on cookbook changes without the need for virtual machines or cloud servers.
 
@@ -11,7 +13,7 @@ ChefSpec runs your cookbooks locally while skipping making actual changes. This 
 
 ## Important Notes
 
-- **ChefSpec requires Ruby 2.2 or later and Chef 12.14.89 or later!**
+- **ChefSpec requires Ruby 2.5 or later and Chef 15 or later!**
 - **This documentation corresponds to the master branch, which may be unreleased. Please check the README of the latest git tag or the gem's source for your version's documentation!**
 
 **ChefSpec aims to maintain compatibility with at least the two most recent minor versions of Chef.** If you are running an older version of Chef it may work, or you will need to run an older version of ChefSpec.
@@ -458,6 +460,42 @@ describe 'something' do
 
   before do
     stub_search(:node, 'roles:web').and_return([{hostname: 'one'}, {hostname: two}])
+  end
+end
+```
+
+#### Searches in libraries
+
+When testing code in a library that uses `Chef::Search::Query.new.search()`, we have
+to stub out the results that would normally come from the Chef Server:
+
+```ruby
+describe 'something' do
+  recipe do
+    results = Chef::Query::Search.new.search(:node, "tags:mytag AND chef_environment:my_env"))
+  end
+
+  before do
+    query = double
+    allow(query).to receive(:search) do |_, arg2|
+    case arg2.downcase
+    when /tags\:mytag AND chef_environment\:my_env/
+        [
+            [
+                stub_node("server01", ohai: { hostname: "server01", ipaddress: '169.0.0.1' }, platform: 'windows', version: '2016'),
+                stub_node("server02", ohai: { hostname: "server02", ipaddress: '169.0.0.2' }, platform: 'windows', version: '2016'),
+            ],
+            0,
+            2,
+        ]
+    else
+        [
+            [],
+            0,
+            0
+        ]
+    end
+    allow(Chef::Search::Query).to receive(:new).and_return(query)
   end
 end
 ```

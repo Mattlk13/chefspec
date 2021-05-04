@@ -21,15 +21,15 @@ describe 'render_file::default' do
 
     describe 'renders the file when given a block' do
       it {
-        is_expected.to render_file('/tmp/file').with_content { |content|
-                         expect(content).to include('This is content!')
-                       }
+        is_expected.to(render_file('/tmp/file').with_content do |content|
+          expect(content).to include('This is content!')
+        end)
       }
 
       it {
-        is_expected.to render_file('/tmp/file').with_content { |content|
-                         expect(content).to_not include('This is not content!')
-                       }
+        is_expected.to(render_file('/tmp/file').with_content do |content|
+          expect(content).to_not include('This is not content!')
+        end)
       }
     end
 
@@ -66,15 +66,15 @@ describe 'render_file::default' do
 
       describe 'renders the file when given a block' do
         it {
-          is_expected.to render_file('/tmp/cookbook_file').with_content { |content|
-                           expect(content).to include('This is content!')
-                         }
+          is_expected.to(render_file('/tmp/cookbook_file').with_content do |content|
+            expect(content).to include('This is content!')
+          end)
         }
 
         it {
-          is_expected.to render_file('/tmp/cookbook_file').with_content { |content|
-                           expect(content).to_not include('This is not content!')
-                         }
+          is_expected.to(render_file('/tmp/cookbook_file').with_content do |content|
+            expect(content).to_not include('This is not content!')
+          end)
         }
       end
 
@@ -139,15 +139,15 @@ describe 'render_file::default' do
 
     describe 'renders the file when given a block' do
       it {
-        is_expected.to render_file('/tmp/template').with_content { |content|
-                         expect(content).to include('This is content!')
-                       }
+        is_expected.to(render_file('/tmp/template').with_content do |content|
+          expect(content).to include('This is content!')
+        end)
       }
 
       it {
-        is_expected.to render_file('/tmp/template').with_content { |content|
-                         expect(content).to_not include('This is not content!')
-                       }
+        is_expected.to(render_file('/tmp/template').with_content do |content|
+          expect(content).to_not include('This is not content!')
+        end)
       }
     end
 
@@ -178,15 +178,15 @@ describe 'render_file::default' do
 
     describe 'renders the file when given a block' do
       it {
-        is_expected.to render_file('/tmp/partial').with_content { |content|
-                         expect(content).to include('has a partial')
-                       }
+        is_expected.to(render_file('/tmp/partial').with_content do |content|
+          expect(content).to include('has a partial')
+        end)
       }
 
       it {
-        is_expected.to render_file('/tmp/partial').with_content { |content|
-                         expect(content).to_not include('not a template partial')
-                       }
+        is_expected.to(render_file('/tmp/partial').with_content do |content|
+          expect(content).to_not include('not a template partial')
+        end)
       }
     end
 
